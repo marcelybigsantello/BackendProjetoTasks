@@ -10,11 +10,13 @@ app.post('/tasks', async (req, resp) => {
     const task = await createTasks({
         id: req.body.id,
         description: req.body.description,
+        dateOfConclusion: req.body.dateOfConclusion
     })
 
+    //TODO: adicionar o tratamento de exceção caso usuário digite id já existente
     resp.json("Tarefa nº" + task.id + " cadastrada com sucesso!");
     resp.statusCode = 201;
-    resp.status(201).end();
+    resp.status(resp.statusCode).end();
 })
 
 app.get('/tasks', async(req, resp) => {
