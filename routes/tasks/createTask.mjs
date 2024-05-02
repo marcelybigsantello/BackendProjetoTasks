@@ -1,4 +1,4 @@
-import { openDb } from './../services/initializeDatabase.mjs';
+import { openDb } from '../services/configDatabase.mjs';
 
 export async function createTasks(newTask){
     console.log("Creating a new task...", newTask);
@@ -9,7 +9,8 @@ export async function createTasks(newTask){
     db.run('INSERT INTO Tasks (idTask, description, dateOfConclusion) VALUES '
     + '($idTask, $description, $dateOfConclusion);', taskData, (error) => {
         if (error) {
-            return console.error("Mensagem de erro: ", error.message);
+            console.error("Mensagem de erro: ", error.message);
+            return error;
         }
     });
 

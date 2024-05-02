@@ -1,14 +1,18 @@
 import express from 'express';
+import { createTable } from './routes/services/createTable.mjs';  
 import { createTasks } from './routes/tasks/createTask.mjs';
-import { loadTaskById, loadTasks } from './routes/tasks/loadTasks.mjs';
+import { getTaskById, loadTasks, updateTask } from './routes/tasks/loadTasks.mjs';
+import { INTERNAL_SERVER_ERROR, NOT_FOUND, NUMBER_OF_AFFECTED_ROWS } from './utils/constantMessages.mjs';
 
 const app = express();
-
 app.use(express.json());
 
-app.post('/tasks', async (req, resp) => {
+console.log("Rodando criação da tabela");
+createTable();
+
+app.post("/tasks", async (req, resp) => {
     const task = await createTasks({
-        id: req.body.id,
+        idTask: req.body.idTask,
         description: req.body.description,
         dateOfConclusion: req.body.dateOfConclusion
     })
@@ -19,18 +23,29 @@ app.post('/tasks', async (req, resp) => {
     resp.status(resp.statusCode).end();
 })
 
-app.get('/tasks', async(req, resp) => {
+app.get("/tasks", async(req, resp) => {
     const tasks = await loadTasks();
     resp.json(tasks);
 })
 
-app.get('', (req, resp) => {
-    resp.send("Hello World");
+app.get("/tasks/:id", async(req, resp) => {
+    let id = req.params.id;
+    const taskData = await getTaskById(id);
+    resp.json(taskData);
 })
 
-app.get('/tasks/{id}', async(req, resp) => {
-    const taskById = await loadTaskById();
-    resp.json(taskById)
+app.put("/tasks", function(req, resp) {
+    console.log(req.body);
+    if (req.body && !req.body.idTask){
+        resp.json({
+            "statusCode": 400,
+            message: NOT_FOUND
+        })
+    } else {
+        updateTask(req.body);
+        resp.json("Tarefa nº " + req.body.idTask + " alterada com sucesso!");
+        resp.status(200).end();
+    }    
 })
 
 app.listen(8888, () => {
