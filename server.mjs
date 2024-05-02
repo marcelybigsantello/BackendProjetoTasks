@@ -1,7 +1,6 @@
 import express from 'express';
 import { createTable } from './routes/services/createTable.mjs';  
-import { createTasks } from './routes/tasks/createTask.mjs';
-import { getTaskById, loadTasks, updateTask } from './routes/tasks/loadTasks.mjs';
+import { createTasks, getTaskById, loadTasks, updateTask } from './routes/persistence/CRUD_Tasks.mjs';
 import { INTERNAL_SERVER_ERROR, NOT_FOUND, NUMBER_OF_AFFECTED_ROWS } from './utils/constantMessages.mjs';
 
 const app = express();

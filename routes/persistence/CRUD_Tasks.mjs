@@ -5,6 +5,23 @@ import { openDb } from '../services/configDatabase.mjs';
 const file = path.resolve('../../database.db');
 const db = new sqlite3.Database(file);
 
+export async function createTasks(newTask){
+    console.log("Creating a new task...", newTask);
+
+    let taskData = Object.values(newTask); 
+    console.log("TaskData: ", taskData);
+    const db = await openDb();
+    db.run('INSERT INTO Tasks (idTask, description, dateOfConclusion) VALUES '
+    + '($idTask, $description, $dateOfConclusion);', taskData, (error) => {
+        if (error) {
+            console.error("Mensagem de erro: ", error.message);
+            return error;
+        }
+    });
+
+    return newTask;
+}
+
 export async function loadTasks() {
     const db = await openDb();
     const data = await db.all("SELECT * from Tasks;");
@@ -17,11 +34,10 @@ export async function getTaskById(id){
     console.log("Id:", id);
     let idTask = Object.values(id); 
     console.log("Id Task: ", idTask);
-    const sql = 'SELECT * from Tasks where idTask=?';
-    const data = await database.run(sql, idTask, (error) => {
+    const sql = '';
+    const data = await database.run('SELECT * from Tasks where idTask=?', [id], function(error) {
         if (error){
-            console.error("Mensagem de erro: ", error.message);
-            return error.message;
+            console.error(error.message);
         }
     });
     console.log("Data: ", data);
@@ -30,10 +46,9 @@ export async function getTaskById(id){
 
 
 export async function updateTask(task){
-
+    const sql = 'UPDATE Tasks SET description=?, dateOfConclusion=? WHERE idTask=?'; 
     openDb().then(db => {
-        db.run('UPDATE Tasks SET description=?, dateOfConclusion=? WHERE idTask=?', 
-        [task.description, task.dateOfConclusion, task.idTask])
+        db.run(sql, [task.description, task.dateOfConclusion, task.idTask])
     }, function (error) {
         if (error){
             console.error(error.message);
