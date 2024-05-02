@@ -1,7 +1,7 @@
 import express from 'express';
 import { createTable } from './routes/services/createTable.mjs';  
 import { createTasks, getTaskById, loadTasks, updateTask } from './routes/persistence/CRUD_Tasks.mjs';
-import { INTERNAL_SERVER_ERROR, NOT_FOUND, NUMBER_OF_AFFECTED_ROWS } from './utils/constantMessages.mjs';
+import { INTERNAL_SERVER_ERROR, NOT_FOUND, CREATE_TASK_SUCCESS } from './utils/constantMessages.mjs';
 
 const app = express();
 app.use(express.json());
@@ -9,15 +9,13 @@ app.use(express.json());
 console.log("Rodando criação da tabela");
 createTable();
 
-app.post("/tasks", async (req, resp) => {
-    const task = await createTasks({
+app.post("/tasks", function (req, resp) {
+    const task = createTasks({
         idTask: req.body.idTask,
         description: req.body.description,
         dateOfConclusion: req.body.dateOfConclusion
     })
-
-    //TODO: adicionar o tratamento de exceção caso usuário digite id já existente
-    resp.json("Tarefa nº" + task.id + " cadastrada com sucesso!");
+    resp.json(CREATE_TASK_SUCCESS);
     resp.statusCode = 201;
     resp.status(resp.statusCode).end();
 })
