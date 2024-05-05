@@ -3,6 +3,7 @@ import { createTable } from './routes/services/createTable.mjs';
 import { createTasks, getTaskById, loadTasks, updateTask } from './routes/persistence/CRUD_Tasks.mjs';
 import { INTERNAL_SERVER_ERROR, NOT_FOUND, CREATE_TASK_SUCCESS } from './utils/constantMessages.mjs';
 
+
 const app = express();
 app.use(express.json());
 
@@ -24,7 +25,7 @@ app.get("/tasks", async function(req, resp) {
     resp.json(tasks);
 })
 
-app.get("/tasks/:id", async(req, resp) => {
+app.get("/tasks/:id", async function(req, resp) {
     let id = req.params.id;
     const task = await getTaskById(id);
     if (task === undefined){
@@ -32,6 +33,7 @@ app.get("/tasks/:id", async(req, resp) => {
             "statusCode": 400,
             message: NOT_FOUND
         })
+        resp.status(400).end();
     }
     resp.status(200);
     resp.json(task);
