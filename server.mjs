@@ -1,7 +1,7 @@
 import express from 'express';
 import { createTable } from './routes/services/createTable.mjs';
 import { createTasks, getTaskById, loadTasks, updateTask, deleteTask } from './routes/persistence/CRUD_Tasks.mjs';
-import { NOT_FOUND, CREATE_TASK_SUCCESS } from './utils/constantMessages.mjs';
+import { NOT_FOUND, CREATE_TASK_SUCCESS, RUN_NODE_WITH_EXPRESS } from './utils/constantMessages.mjs';
 
 const app = express();
 app.use(express.json());
@@ -68,5 +68,5 @@ app.delete("/tasks/:id", async function (req, resp) {
 });
 
 app.listen(8888, () => {
-    console.log("Node com express em execução na porta 8888");
+    console.log(RUN_NODE_WITH_EXPRESS);
 });
