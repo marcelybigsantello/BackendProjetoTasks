@@ -39,7 +39,6 @@ app.get("/tasks/:id", async function (req, resp) {
 });
 
 app.put("/tasks", function (req, resp) {
-    console.log(req.body);
     if (req.body && !req.body.idTask) {
         resp.json({
             "statusCode": 400,

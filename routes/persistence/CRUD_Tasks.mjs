@@ -24,9 +24,6 @@ export async function updateTask(task){
     openDb().then(db => {
         db.run(sql, [task.description, task.dateOfConclusion, task.idTask])
     }, function (error) {
-        if (error){
-            console.error(error.message);
-        }
     });
 }
 
