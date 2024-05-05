@@ -6,10 +6,9 @@ import { INTERNAL_SERVER_ERROR, NOT_FOUND, CREATE_TASK_SUCCESS } from './utils/c
 const app = express();
 app.use(express.json());
 
-console.log("Rodando criação da tabela");
 createTable();
 
-app.post("/tasks", function (req, resp) {
+app.post("/tasks", function(req, resp) {
     const task = createTasks({
         idTask: req.body.idTask,
         description: req.body.description,
@@ -20,15 +19,22 @@ app.post("/tasks", function (req, resp) {
     resp.status(resp.statusCode).end();
 })
 
-app.get("/tasks", async(req, resp) => {
+app.get("/tasks", async function(req, resp) {
     const tasks = await loadTasks();
     resp.json(tasks);
 })
 
 app.get("/tasks/:id", async(req, resp) => {
     let id = req.params.id;
-    const taskData = await getTaskById(id);
-    resp.json(taskData);
+    const task = await getTaskById(id);
+    if (task === undefined){
+        resp.json({
+            "statusCode": 400,
+            message: NOT_FOUND
+        })
+    }
+    resp.status(200);
+    resp.json(task);
 })
 
 app.put("/tasks", function(req, resp) {
