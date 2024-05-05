@@ -1,5 +1,3 @@
-import path from 'node:path';
-import sqlite3 from 'sqlite3';
 import { openDb } from '../services/configDatabase.mjs';
 
 export async function createTasks(newTask){
@@ -25,13 +23,11 @@ export async function loadTasks() {
     return data;
 }
 
-
 export async function getTaskById(id){
     const database = await openDb();
     const sql = "SELECT * from Tasks where idTask=?";
     return database.get(sql, [id]).then(resp=>resp);
 }
-
 
 export async function updateTask(task){
     const sql = 'UPDATE Tasks SET description=?, dateOfConclusion=? WHERE idTask=?'; 
@@ -42,5 +38,10 @@ export async function updateTask(task){
             console.error(error.message);
         }
     });
-    //database.run('UPDATE Tasks SET description=?, dateOfConclusion=? WHERE idTask=?', [task.description, task.dateOfConclusion, task.idTask]);
+}
+
+export async function deleteTask(id){
+    const database = await openDb();
+    const sql = "DELETE from Tasks where idTask=?";
+    return database.get(sql, [id]).then(resp=>resp);
 }
