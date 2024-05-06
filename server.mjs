@@ -1,10 +1,14 @@
 import express from 'express';
 import { createTable } from './routes/services/createTable.mjs';
 import { createTasks, getTaskById, loadTasks, updateTask, deleteTask } from './routes/persistence/CRUD_Tasks.mjs';
-import { NOT_FOUND, CREATE_TASK_SUCCESS, RUN_NODE_WITH_EXPRESS } from './utils/constantMessages.mjs';
+import { NOT_FOUND, CREATE_TASK_SUCCESS, RUN_NODE_WITH_EXPRESS, RUN_APP_HTTPS } from './utils/constantMessages.mjs';
+import cors from 'cors';
+import fs from 'fs';
+import https from 'https';
 
 const app = express();
 app.use(express.json());
+app.use(cors()); //Evita o erro de Cors no navegador
 
 createTable();
 
@@ -70,3 +74,8 @@ app.delete("/tasks/:id", async function (req, resp) {
 app.listen(8888, () => {
     console.log(RUN_NODE_WITH_EXPRESS);
 });
+
+https.createServer({
+    cert: fs.readFileSync('routes/SSL/code.crt'),
+    key: fs.readFileSync('routes/SSL/code.key')
+}, app).listen(8889, () => console.log(RUN_APP_HTTPS));
