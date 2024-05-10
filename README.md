@@ -51,8 +51,9 @@ npm install
 
 ## Usage
 
-1. Start the backend server application navigating to node folder and running the following command
-The server will be listening on port 
+1. Start the backend server application navigating to node folder and run the command:
+
+The server will be listening on port 8888
 
 ```bash
 cd .\node\
@@ -60,6 +61,8 @@ npm run dev
 ```
 
 2. Start the frontend application navigating to vue folder and running the same command
+
+The application will be listening 8080
 
 ```bash
 cd .\vue\
