@@ -5,13 +5,12 @@ This screen interfaces were built using **Vue.js for Frontend**
 
 ## Table of Contents
 - [PreRequirements](#prerequirements)
-- [Installation - Backend](#installationBackend)
-- [Installation - Frontend](#installationFrontend)
-- [Configuration](#configuration)
+- [Installation - Backend](#installation-backend)
+- [Installation - Frontend](#installation-frontend)
 - [Usage](#usage)
 - [API Endpoints](#api-endpoints)
 
-##PreRequirements
+## PreRequirements
 1. Install the Node.js LTS version 
 2. Install the Visual Studio Code software from Microsoft
 
@@ -39,7 +38,7 @@ npm install sqlite3 --save
 npm install sqlite --save
 ```
 
-##Installation - Frontend
+## Installation - Frontend
 
 1. Access the vue folder and install dependencies with NPM
 
@@ -47,9 +46,6 @@ npm install sqlite --save
 cd .\vue\
 npm install
 ```
-
-2. 
-
 
 ## Usage
 
