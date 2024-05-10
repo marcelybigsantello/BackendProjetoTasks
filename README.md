@@ -47,9 +47,11 @@ cd .\vue\
 npm install
 ```
 
+2. Rename the .env.example file to .env
+
 ## Usage
 
-1. Start the server application navigating to node folder and running the following command
+1. Start the backend server application navigating to node folder and running the following command
 The server will be listening on port 
 
 ```bash
@@ -57,10 +59,10 @@ cd .\node\
 npm run dev
 ```
 
-2. Start the frontend applicatio navigating to vue folder and running the same command
+2. Start the frontend application navigating to vue folder and running the same command
 
 ```bash
-cd .\node\
+cd .\vue\
 npm run dev
 ```
 
