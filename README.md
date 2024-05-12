@@ -1,6 +1,7 @@
 # Tasks Management
 
 This project is an API built using **Node.js With Express lib for Backend**
+
 This screen interfaces were built using **Vue.js for Frontend**
 
 ## Table of Contents
@@ -9,6 +10,7 @@ This screen interfaces were built using **Vue.js for Frontend**
 - [Installation - Frontend](#installation-frontend)
 - [Usage](#usage)
 - [API Endpoints](#api-endpoints)
+- [Login Credentials](#login-credentials)
 
 ## PreRequirements
 1. Install the Node.js LTS version 
@@ -48,6 +50,12 @@ npm install
 ```
 
 2. Rename the .env.example file to .env
+
+3. IMPORTANT: To resolve an error of incompatible libs, please run the following command: 
+
+```bash
+npm install vite@4.4.0 --force
+```
 
 ## Usage
 
@@ -94,8 +102,13 @@ GET /tasks/:id - load a specific task based on the id given
 
 **Update a Task**
 ```markdown
-PATCH /tasks/:id - update the information of a task based on the id given
+UPDATE /tasks/ - update the information of a task based on the id written on JSON Body
 ```
+
+**Patch a Task**
+```markdown
+PATCH /tasks/:id - check if the task is finalized or not and update the due_date with current date 
+``` 
 
 **Delete a Task by ID**
 ```markdown
@@ -105,9 +118,14 @@ DELETE /tasks/:id - delete a task based on the id given
 **BODY**
 ```json
 {
-    "id": 1,
     "description": "new task created!",
     "due_date": "01/05/2024"
 }
 ```
 
+## Login Credentials 
+
+```json
+    username: admin@verzel.com.br
+    password: S3nh@.S3cr3t@
+```
